@@ -13,7 +13,8 @@
 #include<time.h>
 #include<windows.h>
 #include <sstream>
-# define PI           3.14159265358979323846
+#include<fstream>
+# define PI 3.14
 using namespace std;
 void player();
 void enemy1();
@@ -23,7 +24,8 @@ void sound();
 void updateWheel(int value);
 void playerWheelMoving();
 void showText( float x, float y, char *st,int number);
-void showGameOverText(float x, float y, char *st);
+void showGameOverText(float x, float y, char *st, char * highscore);
+void showGameName(float x, float y, char *st);
 void display1();
 float playerPositionx=0,playerPositiony=0,enemy1Positionx=-0.3,enemy1Positiony=1.8,ally1Positionx=-0.6,ally1Positiony=1.6,scoreUpPositionx=0.3,scoreUpPositiony=1.6;
 int timer=500;
@@ -33,6 +35,8 @@ float speedWheel = 1.0f;
 char scoreText[] = "SCORE: ";
 char lifeText[] = "LIFE: ";
 char gameOverText[] = "GAME OVER. ";
+char highScoreText[] = "HIGHEST SCORE: ";
+char gameName[]= "HEART STONE";
 bool gameOver=false;
 short life=3;
 int sky1=38, sky2= 154, sky3=  214;
@@ -58,10 +62,27 @@ void display()
     scoreUp();
     showText(.6,.9,scoreText,score);
     showText(.6,.8,lifeText,life);
+    showGameName(-0.95,0.9,gameName);
 
     if(gameOver==true)
     {
-        showGameOverText(.0,.0,gameOverText);
+        ifstream highScore2;
+        highScore2.open("highScore.txt");
+        int x;
+        highScore2>>x;
+        highScore2.close();
+        if(x<score)
+        {
+            ofstream l;
+            l.open("highScore.txt");
+            l<<score;
+            l.close();
+        }
+        showGameOverText(.0,.0,gameOverText,highScoreText);
+        /*ofstream l;
+        l.open("highScore.txt");
+        l<<"6";
+        l.close();*/
     }
 
     glFlush();
@@ -69,9 +90,6 @@ void display()
 
 
 }
-
-
-
 
 void player()
 
@@ -513,27 +531,56 @@ void showText( float x, float y, char *st,int number)
        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, char_type[i]);
 
     }
-
-
-
 }
-void showGameOverText( float x, float y, char *st)
+void showGameOverText( float x, float y, char *st, char *highscore)
 {
     int l,i;
+    l=strlen( st );
+    glColor3ub(70,23,55);
+    glRasterPos2f( x, y);
+    for( i=0; i < l; i++)
+    {
+       glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, st[i]);
 
+    }
+    l=strlen( highscore );
+    glRasterPos2f( (x-.1), (y-.1));
+    for( i=0; i < l; i++)
+    {
+       glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, highscore[i]);
 
+    }
+
+    ifstream highScore2;
+    highScore2.open("highScore.txt");
+    int hScore;
+    highScore2>>hScore;
+    highScore2.close();
+
+    stringstream strs;
+    strs << hScore;
+    string temp_str = strs.str();
+    char* char_type = (char*) temp_str.c_str();
+    l=strlen(char_type);
+    for( i=0; i < l; i++)
+    {
+       glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, char_type[i]);
+
+    }
+}
+void showGameName(float x, float y, char *st)
+{
+    int l,i;
     l=strlen( st );
     glColor3ub(255,0,0);
     glRasterPos2f( x, y);
     for( i=0; i < l; i++)
     {
-       glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, st[i]);
+       glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, st[i]);
 
     }
 }
-
 //Scene
-
 
 void display1()
 {
