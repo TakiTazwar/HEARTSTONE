@@ -20,7 +20,7 @@
 
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\gl.h
 
-976692172 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
+1580212242 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>
@@ -120,7 +120,7 @@
 
 1301111154 c:\program files (x86)\codeblocks\mingw\include\lzexpand.h
 
-1301111154 c:\program files (x86)\codeblocks\mingw\include\mmsystem.h
+1586520202 c:\program files (x86)\codeblocks\mingw\include\mmsystem.h
 
 1301111154 c:\program files (x86)\codeblocks\mingw\include\nb30.h
 
@@ -233,4 +233,17 @@
 1341006776 c:\program files (x86)\codeblocks\mingw\include\time.h
 	<_mingw.h>
 	<stddef.h>
+
+1589455170 source:c:\users\anup\documents\github\heartstone\main.cpp
+	<iostream>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<math.h>
+	<cmath>
+	<cstring>
+	<time.h>
+	<windows.h>
+	<sstream>
+	<fstream>
 
